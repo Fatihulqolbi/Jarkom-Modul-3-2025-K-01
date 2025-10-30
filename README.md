@@ -490,6 +490,12 @@ auto eth0
 iface eth0 inet dhcp
 ```
 
+## Di Khamul (Fix Address)
+```
+Tambahi Config
+hwaddress ether <Mac Adress Khamul> -> 02:42:7d:16:51:00
+```
+
 ## Dokumentasi
 
 ## Gilgalad
@@ -500,5 +506,45 @@ iface eth0 inet dhcp
 
 ## Khamul
 <img width="1015" height="553" alt="image" src="https://github.com/user-attachments/assets/6152fc0d-3a74-483b-9ab4-57d8202b7e2d" />
+
+### Soal 3
+
+## Di Minastir
+```
+options {
+    directory "/var/cache/bind";
+
+    // Nonaktifkan DNSSEC agar tidak error validasi
+    dnssec-validation no;
+
+    // Forward semua permintaan DNS ke router Durin (yang terhubung Internet)
+    forwarders {
+        10.64.1.1;     // IP eth0 Durin di subnet utama
+    };
+
+    // Izinkan semua klien query
+    allow-query { any; };
+
+    // Agar tidak muncul NXDOMAIN warning
+    auth-nxdomain no;
+
+    // Dengar dari semua interface
+    listen-on-v6 { any; };
+    listen-on { any; };
+};
+
+ln -s /etc/init.d/named /etc/init.d/bind9
+service bind9 restart
+service bind9 status
+```
+
+## Ujicoba
+```
+nano /etc/resolv.conf
+Sisakan IP Adress Ministar --> nameserver 10.64.5.2
+
+Untuk Uji coba
+Ping google.com 
+```
 
 
