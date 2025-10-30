@@ -744,16 +744,13 @@ dig -x 10.64.3.3
 dig -x 10.64.3.2
 
 dig elros.k1.com TXT
-dig pharazon.com TXT
+dig pharazon.k1.com TXT
 ```
 <img width="902" height="290" alt="image" src="https://github.com/user-attachments/assets/02fc8499-67b8-4477-a212-06f08ecc15b8" />
 <img width="862" height="496" alt="image" src="https://github.com/user-attachments/assets/253efa5c-4533-42b2-83ac-01c0f80c7d75" />
 <img width="871" height="503" alt="image" src="https://github.com/user-attachments/assets/aafae4ee-f240-45a3-8a91-e4558890c189" />
 <img width="869" height="379" alt="image" src="https://github.com/user-attachments/assets/e378b5f2-2d23-422a-b758-84f41ff311b3" />
 <img width="898" height="493" alt="image" src="https://github.com/user-attachments/assets/6c250c0c-511d-4223-88e9-34b7f4ab1aec" />
-
-
-
 
 
 ### Soal 6
