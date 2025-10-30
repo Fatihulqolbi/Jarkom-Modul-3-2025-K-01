@@ -550,7 +550,7 @@ Ping google.com
 ## Dokumentasi 
 <img width="721" height="231" alt="image" src="https://github.com/user-attachments/assets/ab7b2cc4-fc5f-4303-88c3-4932493e7d58" />
 
-## Soal 4
+### Soal 4
 
 ## Di Amdir
 ```
@@ -662,3 +662,9 @@ ping ns1.k1.com
 ping ns2.k1.com
 ping galadriel.k1.com
 ```
+
+## Dokumentasi
+<img width="973" height="798" alt="image" src="https://github.com/user-attachments/assets/08ffd7b9-928c-4d04-adb3-6de1c670781c" />
+
+
+### Soal 5
