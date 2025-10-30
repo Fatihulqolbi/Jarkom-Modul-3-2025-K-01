@@ -772,3 +772,14 @@ max-least-time 3600;
 ```
 <img width="846" height="423" alt="image" src="https://github.com/user-attachments/assets/68d4d5c3-27cd-4202-90a1-3f4d43b4a76a" />
 
+### UJI COBA
+
+Dari Node Manapun ( Misal Elendil ) 
+```
+apt-get update
+apt-get install isc-dhcp-client -y
+
+dhclient -r
+dhclient
+cat /var/lib/dhcp/dhclient.leases
+```
