@@ -668,3 +668,92 @@ ping galadriel.k1.com
 
 
 ### Soal 5
+## Di Erendis
+```
+nano /etc/bind/jarkom/3.64.10.in-addr.arpa
+
+;
+; Reverse zone for 10.64.3.0/24
+;
+$TTL 604800
+@       IN      SOA     ns1.k1.com. root.k1.com. (
+            2025103001 ; Serial
+            604800     ; Refresh
+            86400      ; Retry
+            2419200    ; Expire
+            604800 )   ; Negative Cache TTL
+;
+@       IN      NS      ns1.k1.com.
+
+; PTR records
+3       IN      PTR     erendis.k1.com.
+2       IN      PTR     amdir.k1.com.
+```
+```
+nano /etc/bind/named.conf.local
+
+zone "k1.com" {
+    type master;
+    file "/etc/bind/jarkom/k1.com";
+    allow-transfer { 10.64.3.2; };   // Amdir
+    also-notify { 10.64.3.2; };      // Amdir
+};
+
+zone "3.64.10.in-addr.arpa" {
+    type master;
+    file "/etc/bind/jarkom/3.64.10.in-addr.arpa";
+    allow-transfer { 10.64.3.2; };  // Amdir (slave)
+};
+```
+```
+nano /etc/bind/named.conf.options
+
+; ===== Tambahan untuk soal 5 =====
+
+; Alias untuk domain utama
+www     IN  CNAME   k1.com.
+
+; TXT records rahasia
+elros       IN  TXT  "Cincin Sauron"
+pharazon    IN  TXT  "Aliansi Terakhir"
+```
+```
+service bind9 restart
+```
+## Di Amdir
+```
+nano /etc/bind/named.conf.local
+
+zone "k1.com" {
+    type slave;
+    masters { 10.64.3.3; };   // IP Erendis (Master)
+    file "/etc/bind/jarkom/k1.com";
+};
+
+zone "3.64.10.in-addr.arpa" {
+    type slave;
+    masters { 10.64.3.3; };  // Erendis sebagai master
+    file "/etc/bind/jarkom/3.64.10.in-addr.arpa";
+};
+```
+## TESTING (Elendil)
+```
+ping www.k1.com
+
+dig -x 10.64.3.3
+dig -x 10.64.3.2
+
+dig elros.k1.com TXT
+dig pharazon.com TXT
+```
+<img width="902" height="290" alt="image" src="https://github.com/user-attachments/assets/02fc8499-67b8-4477-a212-06f08ecc15b8" />
+<img width="862" height="496" alt="image" src="https://github.com/user-attachments/assets/253efa5c-4533-42b2-83ac-01c0f80c7d75" />
+<img width="871" height="503" alt="image" src="https://github.com/user-attachments/assets/aafae4ee-f240-45a3-8a91-e4558890c189" />
+<img width="869" height="379" alt="image" src="https://github.com/user-attachments/assets/e378b5f2-2d23-422a-b758-84f41ff311b3" />
+<img width="898" height="493" alt="image" src="https://github.com/user-attachments/assets/6c250c0c-511d-4223-88e9-34b7f4ab1aec" />
+
+
+
+
+
+### Soal 6
