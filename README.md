@@ -662,7 +662,7 @@ ln -s /etc/init.d/named /etc/init.d/bind9
 service bind9 restart
 
 nano /etc/resolv.conf
-nameserver 10.62.3.3
+nameserver 10.64.3.3
 nameserver 10.64.3.2
 ```
 
