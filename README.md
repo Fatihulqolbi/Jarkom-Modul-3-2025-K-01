@@ -516,6 +516,7 @@ hwaddress ether <Mac Adress Khamul> -> 02:42:7d:16:51:00
 
 ## Di Minastir
 ```
+nano /etc/bind/named.conf.options
 options {
     directory "/var/cache/bind";
 
