@@ -883,3 +883,79 @@ lynx http://10.64.1.5   # Anarion
 
 # Dokumentasi (Tampilan Akhir Seluruh Node) 
 <img width="1890" height="987" alt="image" src="https://github.com/user-attachments/assets/e3ad4fd9-cf3b-49e7-a62d-8db5fee2f703" />
+
+
+### Soal 12
+## Pada Node Galadriel, Celeborn, dan Oropher
+```
+apt update
+apt instal nginx php8.4.fpm -y
+```
+```
+systemctl enable nginx
+service nginx start
+systemctl enable php8.4-fpm
+service php8.4-fpm start
+```
+
+# Buat file index.php di node Galadriel, Celeborn, dan Oropher
+`echo "<?php echo 'Halo, saya ' . gethostname(); ?>" > /var/www/html/index.php
+`
+# Konfigurasi /etc/nginx/sites-available/default
+```
+server {
+    listen 80;
+    server_name galadriel.k1.com;
+
+    root /var/www/html;
+    index index.php index.html;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/run/php/php8.4-fpm.sock;
+    }
+
+    # Blok akses lewat IP langsung
+    if ($host ~* "^\d+\.\d+\.\d+\.\d+$") {
+        return 403;
+    }
+}
+```
+```
+systemctl restart nginx
+```
+
+## Di Erendis
+Pastikan di zona k1.com terdapat
+```
+galadriel   IN  A   10.64.2.5
+celeborn    IN  A   10.64.2.3
+oropher     IN  A   10.64.2.2
+```
+Reload
+```
+service bind9 restart
+```
+
+## Uji Coba (Cth Elendil)
+```
+ping galadriel.k1.com
+curl galadriel.k1.com
+ping celeborn.k1.com
+curl celeborn.k1.com
+ping oropher.k1.com
+curl oropher.k1.com
+
+curl http://10.64.2.5
+```
+
+
+
+<img width="907" height="439" alt="image" src="https://github.com/user-attachments/assets/6c83e905-2bc6-44b3-8d8c-910d06e21525" />
+
+
+
