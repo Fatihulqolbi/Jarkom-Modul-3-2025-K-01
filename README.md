@@ -789,26 +789,40 @@ cat /var/lib/dhcp/dhclient.leases
 ## Di Erendil 
 ```
 apt-get update
+
+nano /etc/apt/sources.list
+ISI DENGAN INI
+deb http://deb.debian.org/debian bookworm main contrib non-free
+deb http://security.debian.org/debian-security bookworm-security main contrib non-free
+deb http://deb.debian.org/debian bookworm-updates main contrib non-free
+
+apt-get update
 apt-get install -y software-properties-common
 apt-get install -y lsb-release ca-certificates apt-transport-https gnupg2 curl git unzip
 curl -sSL https://packages.sury.org/php/README.txt | bash -x
-apt-get install -y php8.4 php8.4-fpm php8.4-mysql php8.4-mbstring php8.4-xml php8.4-curl php8.4-zip
+apt install -y php8.2 php8.2-fpm php8.2-cli php8.2-common php8.2-curl php8.2-mbstring php8.2-xml php8.2-zip php8.2-bcmath php8.2-gd unzip git
 
+apt-get install -y nginx
 service nginx start
 ps aux | grep nginx
-service php8.4-fpm start
 curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 composer --version
 
+cd /var/www
+git clone https://github.com/elshiraphine/laravel-simple-rest-api.git resource-laravel-k1
+cd resource-laravel-k1
+
 composer install
 composer update
 
-apt install -y php8.2 php8.2-cli php8.2-common php8.2-curl php8.2-mbstring php8.2-xml php8.2-zip php8.2-bcmath php8.2-gd unzip git
+cp .env.example .env
+php artisan key:generate
 
-composer install
-composer update
-
+ls -la /var/www/resource-laravel-k1/
 cat /var/www/resource-laravel-k1/.env
+ls /var/www/resource-laravel-k1/vendor/
+cd /var/www/resource-laravel-k1
+php artisan --version
 
 nano /etc/nginx/sites-available/laravel
 
@@ -847,15 +861,25 @@ server {
 }
 
 cd /var/www/resource-laravel-k1
+ln -s /etc/nginx/sites-available/laravel /etc/nginx/sites-enabled/
+rm /etc/nginx/sites-enabled/default
+
 chmod -R 775 storage bootstrap/cache
 chown -R www-data:www-data storage bootstrap/cache
+
+service php8.2-fpm start
+ls /run/php/
+nginx -t
+service nginx restart
 ```
 
 ## Testing ( Di Miriel ) 
 ```
+apt-get install -y lynx
 lynx http://10.64.1.7   # Elendil
 lynx http://10.64.1.6   # Isildur
 lynx http://10.64.1.5   # Anarion
 ```
 
+# Dokumentasi (Tampilan Akhir Seluruh Node) 
 <img width="1890" height="987" alt="image" src="https://github.com/user-attachments/assets/e3ad4fd9-cf3b-49e7-a62d-8db5fee2f703" />
