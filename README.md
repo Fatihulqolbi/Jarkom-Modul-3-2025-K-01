@@ -321,7 +321,7 @@ subnet 10.64.4.0 netmask 255.255.255.0 {
 
 # Fixed address untuk Khamul
 host Khamul {
-    hardware ethernet 02:42:ac:11:00:0f;
+    hardware ethernet 02:42:7d:16:51:00;
     fixed-address 10.64.3.95;
 }
 # The ddns-updates-style parameter controls whether or not the server will
@@ -482,6 +482,11 @@ OPTIONS="-a -i eth4"
 ## STEP AKHIR
 ```
 service isc-dhcp-relay restart
+
+nano /etc/resolv.conf
+nameserver 10.64.3.3
+nameserver 10.64.3.2
+nameserver 192.168.122.1
 ```
 
 ## UBAH CONFIG Di Gilgalad, Amandil, Khamul 
