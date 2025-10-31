@@ -783,3 +783,79 @@ dhclient -r
 dhclient
 cat /var/lib/dhcp/dhclient.leases
 ```
+
+### Soal 7 
+
+## Di Erendil 
+```
+apt-get update
+apt-get install -y software-properties-common
+apt-get install -y lsb-release ca-certificates apt-transport-https gnupg2 curl git unzip
+curl -sSL https://packages.sury.org/php/README.txt | bash -x
+apt-get install -y php8.4 php8.4-fpm php8.4-mysql php8.4-mbstring php8.4-xml php8.4-curl php8.4-zip
+
+service nginx start
+ps aux | grep nginx
+service php8.4-fpm start
+curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+composer --version
+
+composer install
+composer update
+
+apt install -y php8.2 php8.2-cli php8.2-common php8.2-curl php8.2-mbstring php8.2-xml php8.2-zip php8.2-bcmath php8.2-gd unzip git
+
+composer install
+composer update
+
+cat /var/www/resource-laravel-k1/.env
+
+nano /etc/nginx/sites-available/laravel
+
+ISI DENGAN INI
+server {
+    listen 80;
+    server_name localhost;
+    root /var/www/resource-laravel-k1/public;
+
+    add_header X-Frame-Options "SAMEORIGIN";
+    add_header X-Content-Type-Options "nosniff";
+
+    index index.php;
+
+    charset utf-8;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location = /robots.txt  { access_log off; log_not_found off; }
+
+    error_page 404 /index.php;
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/run/php/php8.2-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    location ~ /\.(?!well-known).* {
+        deny all;
+    }
+}
+
+cd /var/www/resource-laravel-k1
+chmod -R 775 storage bootstrap/cache
+chown -R www-data:www-data storage bootstrap/cache
+```
+
+## Testing ( Di Miriel ) 
+```
+lynx http://10.64.1.7   # Elendil
+lynx http://10.64.1.6   # Isildur
+lynx http://10.64.1.5   # Anarion
+```
+
+<img width="1890" height="987" alt="image" src="https://github.com/user-attachments/assets/e3ad4fd9-cf3b-49e7-a62d-8db5fee2f703" />
