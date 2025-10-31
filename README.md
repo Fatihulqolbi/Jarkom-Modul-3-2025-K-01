@@ -889,7 +889,7 @@ lynx http://10.64.1.5   # Anarion
 ## Pada Node Galadriel, Celeborn, dan Oropher
 ```
 apt update
-apt instal nginx php8.4.fpm -y
+apt install nginx php8.4.fpm -y
 ```
 ```
 systemctl enable nginx
@@ -926,7 +926,7 @@ server {
 }
 ```
 ```
-systemctl restart nginx
+service nginx restart
 ```
 
 ## Di Erendis
@@ -934,7 +934,7 @@ Pastikan di zona k1.com terdapat
 ```
 galadriel   IN  A   10.64.2.5
 celeborn    IN  A   10.64.2.3
-oropher     IN  A   10.64.2.2
+oropher     IN  A   10.64.2.4
 ```
 Reload
 ```
