@@ -719,9 +719,11 @@ zone "3.64.10.in-addr.arpa" {
 };
 ```
 ```
-nano /etc/bind/named.conf.options
+nano /etc/bind/jarkom/k1.com
 
 ; ===== Tambahan untuk soal 5 =====
+
+@       IN      A       10.64.3.3
 
 ; Alias untuk domain utama
 www     IN  CNAME   k1.com.
