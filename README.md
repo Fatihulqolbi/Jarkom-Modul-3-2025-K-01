@@ -801,7 +801,7 @@ cat /var/lib/dhcp/dhclient.leases
 
 ### Soal 7 
 
-## Di Erendil 
+## Di Elendil, Isildur, Anarion
 ```
 apt-get update
 
