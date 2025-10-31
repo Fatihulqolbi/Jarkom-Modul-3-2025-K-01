@@ -564,6 +564,9 @@ Ping google.com
 
 ## Di Amdir
 ```
+apt-get update
+apt-get install bind9 -y
+
 nano /etc/bind/named.conf.local
 
 zone "k1.com" {
