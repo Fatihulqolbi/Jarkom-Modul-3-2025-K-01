@@ -518,6 +518,7 @@ hwaddress ether <Mac Adress Khamul> -> 02:42:7d:16:51:00
 ```
 apt-get update
 apt-get install bind9 -y
+apt-get install bind9 -y
 
 nano /etc/bind/named.conf.options
 options {
