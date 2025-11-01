@@ -459,7 +459,7 @@ service isc-dhcp-relay start
 
 ## STEP SELANJUTNYA
 ```
-nano /etc/sysctl.conf
+nano /etc/default/isc-dhcp-relay
 
 # Defaults for isc-dhcp-relay initscript
 # sourced by /etc/init.d/isc-dhcp-relay
