@@ -963,6 +963,12 @@ ab -n 100 -c 10 http://elros.k1.com/api/airing/
 ab -n 100 -c 10 http://elros.k1.com/api/airing/
 ```
 
+## Dokumentasi
+
+<img width="817" height="676" alt="image" src="https://github.com/user-attachments/assets/d56ca4c8-2909-45a4-a4da-f0fd8e5d4fb7" />
+
+<img width="655" height="844" alt="image" src="https://github.com/user-attachments/assets/f0f2f082-2eca-4740-865a-23b9c832d5a7" />
+
 ### Soal 12
 ## Pada Node Galadriel, Celeborn, dan Oropher
 ```
