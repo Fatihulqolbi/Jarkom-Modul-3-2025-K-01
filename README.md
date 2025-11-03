@@ -1301,6 +1301,24 @@ curl http://isildur.k1:8002/api/airing
 curl http://anarion.k1:8003/api/airing
 ```
 
+```
+curl -o /dev/null -s -w "HTTP Status: %{http_code}\n" http://erendil.k1.com:8001
+curl -o /dev/null -s -w "HTTP Status: %{http_code}\n" http://isildur.k1.com:8002
+curl -o /dev/null -s -w "HTTP Status: %{http_code}\n" http://anarion.k1.com:8003
+```
+
+### Soal no 9
+
+```
+lynx http://elendil.k1.com:8001
+lynx http://isildur.k1.com:8002
+lynx http://anarion.k1.com:8003
+
+curl http://elendil.k1:8001/api/airing
+curl http://isildur.k1:8002/api/airing
+curl http://anarion.k1:8003/api/airing
+```
+
 
 ### Soal 10
 
