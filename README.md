@@ -1045,7 +1045,7 @@ curl http://isildur.k1:8002/api/airing
 curl http://anarion.k1:8003/api/airing
 ```
 
-## Insildur
+## Isildur
 
 ```
 cd /var/www/resource-laravel-k1
@@ -1124,7 +1124,7 @@ php artisan migrate:fresh --seed
 ```
 apt-get install -y mariadb-client
 
-nano /etc/nginx/sites-available/elendil
+nano /etc/nginx/sites-available/isildur
 
 ISI INI
 server {
@@ -1150,7 +1150,7 @@ server {
     }
 }
 
-ln -s /etc/nginx/sites-available/elendil /etc/nginx/sites-enabled/
+ln -s /etc/nginx/sites-available/isildur /etc/nginx/sites-enabled/
 chown -R www-data:www-data /var/www/resource-laravel-k1
 chmod -R 775 /var/www/resource-laravel-k1/storage /var/www/resource-laravel-k1/bootstrap/cache
 nginx -t
@@ -1252,7 +1252,7 @@ php artisan migrate:fresh --seed
 ```
 apt-get install -y mariadb-client
 
-nano /etc/nginx/sites-available/elendil
+nano /etc/nginx/sites-available/anarion
 
 ISI INI
 server {
@@ -1278,7 +1278,7 @@ server {
     }
 }
 
-ln -s /etc/nginx/sites-available/elendil /etc/nginx/sites-enabled/
+ln -s /etc/nginx/sites-available/anarion /etc/nginx/sites-enabled/
 chown -R www-data:www-data /var/www/resource-laravel-k1
 chmod -R 775 /var/www/resource-laravel-k1/storage /var/www/resource-laravel-k1/bootstrap/cache
 nginx -t
