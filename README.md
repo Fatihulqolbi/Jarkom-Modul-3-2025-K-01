@@ -1324,16 +1324,33 @@ curl http://anarion.k1:8003/api/airing
 
 ## Di Elron
 ```
-apt-get update && apt-get install -y nginx
+apt-get update
+apt-get install -y nginx
 
+mkdir -p /etc/nginx/sites-available /etc/nginx/sites-enabled
 nano /etc/nginx/sites-available/elros
 
+# ==========================
+# UPSTREAM CONFIG
+# ==========================
 upstream kesatria_numenor {
-    server 10.64.1.7:8001;
-    server 10.64.1.6:8002;
-    server 10.64.1.5:8003;
+    server 10.64.1.7:8001;   # Elendil
+    server 10.64.1.6:8002;   # Isildur
+    server 10.64.1.5:8003;   # Anarion
 }
 
+# ==========================
+# DEFAULT DENY (ANTI DIRECT IP)
+# ==========================
+server {
+    listen 80 default_server;
+    server_name _;
+    return 444;
+}
+
+# ==========================
+# MAIN REVERSE PROXY SERVER
+# ==========================
 server {
     listen 80;
     server_name elros.k1.com;
@@ -1357,38 +1374,150 @@ rm /etc/nginx/sites-enabled/default
 
 nginx -t
 service nginx restart
+
+ls /var/log/nginx
 ```
 
-## TES DI Miriel
+## Miriel
 ```
-curl http://elros.k1.com
-curl http://elros.k1.com/api/airing
+for i in {1..10}; do
+    curl -s http://elros.k1.com/api/airing | grep -o '"id":[0-9]*' | head -1
+done
+
+for i in {1..20}; do
+    curl -s -o /dev/null -w "%{http_code}\n" http://elros.k1.com/api/airing
+done
+
+Nanti ini yaa
+for i in {1..15}; do
+  curl -s http://elros.k1.com/api/airing | grep -o '"message":"[^"]*"' | head -1
+done
 ```
 
-## Ubah Format Log
+## Untuk bisa Upstream ( Elros)
 ```
-UBAH LOG
-log_format main '$remote_addr - $remote_user [$time_local] "$request" '
-                '$status $body_bytes_sent "$http_referer" "$http_user_agent" '
-                'upstream=$upstream_addr';
-access_log /var/log/nginx/elros_access.log main;
+nano /etc/nginx/nginx.conf
+
+Tambahkan INI
+
+log_format upstreamlog '$remote_addr - $host -> $upstream_addr [$time_local] '
+                       '"$request" $status $body_bytes_sent '
+                       'upstream_status:$upstream_status '
+                       'upstream_time:$upstream_response_time '
+                       'request_time:$request_time';
+
+access_log /var/log/nginx/elros_access.log upstreamlog;
+
+nano /etc/nginx/sites-available/elros
+
+CEK INI
+access_log /var/log/nginx/elros_access.log upstreamlog;
+error_log /var/log/nginx/elros_error.log;
+
+nginx -t
+service nginx restart
+
+TESTING (Miriel) 
+for i in {1..10}; do
+  curl -s http://elros.k1.com/api/airing >/dev/null
+done
+```
+
+## TES DI Elron
+```
+tail -f /var/log/nginx/elros_access.log
+tail -n 50 /var/log/nginx/elros_access.log | grep "upstream"
+```
+
+## Dokumentasi
+<img width="1518" height="804" alt="image" src="https://github.com/user-attachments/assets/f1100b32-803e-41d0-acf7-8a611c1b2418" />
+
+### Soal 11
+
+## DI Narvi 
+```
+apt-get update
+apt-get install -y apache2-utils htop
+
+nano /etc/resolv.conf
+nameserver 10.64.3.3
+nameserver 10.64.3.2
+
+```
+
+## Di Elros
+```
+nano /etc/nginx/sites-available/elros
+
+Periksa lagi
+upstream kesatria_numenor {
+    server 10.64.1.7:8001;
+    server 10.64.1.6:8002;
+    server 10.64.1.5:8003;
+}
+
+server {
+    listen 80 default_server;
+    server_name _; 
+    return 444;
+}
+
+server {
+    listen 80;
+    server_name elros.k1.com;
+
+    location / {
+        proxy_pass http://kesatria_numenor;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    access_log /var/log/nginx/elros_access.log;
+    error_log /var/log/nginx/elros_error.log;
+}
+
+ln -sf /etc/nginx/sites-available/elros /etc/nginx/sites-enabled/
+rm -f /etc/nginx/sites-enabled/default
+nginx -t
+service nginx restart
+```
+
+## Serangan Awal (Narvi)
+```
+ab -n 100 -c 10 http://elros.k1.com/api/airing/
+ab -n 2000 -c 100 http://elros.k1.com/api/airing/
+```
+
+## Cek Elros ( Setelah Diserang ) 
+```
+cat /var/log/nginx/elros_access.log | awk -F'-> ' '{print $2}' | awk '{print $1}' | sort | uniq -c
+cat /var/log/nginx/elros_access.log | awk -F'-> ' '{print $2}' | awk '{print $1}' | grep '[0-9]' | sort | uniq -c
+cat /var/log/nginx/elros_access.log | awk -F'-> ' '{print $2}' | awk '{print $1}' | grep '[0-9]' | sort | uniq -c | awk '{sum += $1; print $0} END {print "Total:", sum}'
+```
+
+## Tambahkan Weight Untuk Bertahan (Elros ) 
+```
+nano /etc/nginx/sites-available/elros
+
+Ubah Yang ini
+upstream kesatria_numenor {
+    server 10.64.1.7:8001 weight=3;
+    server 10.64.1.6:8002 weight=2;
+    server 10.64.1.5:8003 weight=1;
+}
 
 nginx -t
 service nginx restart
 ```
 
-## Uji dengan ab
+## Coba Lagi
 ```
-apt install apache2-utils -y
-ab -n 100 -c 10 http://elros.k1.com/api/airing/
-ab -n 100 -c 10 http://elros.k1.com/api/airing/
+cat /var/log/nginx/elros_access.log | awk -F'-> ' '{print $2}' | awk '{print $1}' | sort | uniq -c
+cat /var/log/nginx/elros_access.log | awk -F'-> ' '{print $2}' | awk '{print $1}' | grep '[0-9]' | sort | uniq -c
+cat /var/log/nginx/elros_access.log | awk -F'-> ' '{print $2}' | awk '{print $1}' | grep '[0-9]' | sort | uniq -c | awk '{sum += $1; print $0} END {print "Total:", sum}'
 ```
-
-## Dokumentasi
-
-<img width="817" height="676" alt="image" src="https://github.com/user-attachments/assets/d56ca4c8-2909-45a4-a4da-f0fd8e5d4fb7" />
-
-<img width="655" height="844" alt="image" src="https://github.com/user-attachments/assets/f0f2f082-2eca-4740-865a-23b9c832d5a7" />
 
 ### Soal 12
 ## Pada Node Galadriel, Celeborn, dan Oropher
