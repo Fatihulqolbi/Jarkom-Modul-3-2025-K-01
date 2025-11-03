@@ -1036,9 +1036,9 @@ apt-get install -y lynx
 
 ## Testing
 ```
-lynx http://elendil.k1:8001
-lynx http://isildur.k1:8002
-lynx http://anarion.k1:8003
+lynx http://elendil.k1.com:8001
+lynx http://isildur.k1.com:8002
+lynx http://anarion.k1.com:8003
 
 curl http://elendil.k1:8001/api/airing
 curl http://isildur.k1:8002/api/airing
