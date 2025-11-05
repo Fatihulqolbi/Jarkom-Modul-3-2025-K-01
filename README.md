@@ -1307,6 +1307,25 @@ curl -o /dev/null -s -w "HTTP Status: %{http_code}\n" http://isildur.k1.com:8002
 curl -o /dev/null -s -w "HTTP Status: %{http_code}\n" http://anarion.k1.com:8003
 ```
 
+## Dokumentasi Config Elendil 
+
+<img width="692" height="774" alt="image" src="https://github.com/user-attachments/assets/d8899811-2fea-4c5c-8b2a-41c8b904f108" />
+
+<img width="850" height="503" alt="image" src="https://github.com/user-attachments/assets/11b93cf6-24bb-4e8b-8b1d-fb4629dbc67f" />
+
+## Dokumentasi Config Isildur
+
+<img width="872" height="860" alt="image" src="https://github.com/user-attachments/assets/5d2959a8-103b-4f82-8a99-f606a0c67f43" />
+
+<img width="739" height="447" alt="image" src="https://github.com/user-attachments/assets/767895a5-5f0f-4681-9bf6-6cd7513d04a2" />
+
+## Dokumentasi Config Anarion
+
+<img width="793" height="725" alt="image" src="https://github.com/user-attachments/assets/872a505c-f831-4200-af16-f2629dcd7052" />
+
+<img width="781" height="472" alt="image" src="https://github.com/user-attachments/assets/bfed5dff-bfa5-4772-a04c-fd3ac4111fea" />
+
+
 ### Soal no 9
 
 ```
@@ -1318,6 +1337,9 @@ curl http://elendil.k1:8001/api/airing
 curl http://isildur.k1:8002/api/airing
 curl http://anarion.k1:8003/api/airing
 ```
+
+## Dokumentasi
+<img width="965" height="515" alt="image" src="https://github.com/user-attachments/assets/8df82452-0c42-4847-a045-26895cc41c0d" />
 
 
 ### Soal 10
@@ -1432,6 +1454,9 @@ tail -n 50 /var/log/nginx/elros_access.log | grep "upstream"
 ## Dokumentasi
 <img width="1518" height="804" alt="image" src="https://github.com/user-attachments/assets/f1100b32-803e-41d0-acf7-8a611c1b2418" />
 
+<img width="1535" height="441" alt="image" src="https://github.com/user-attachments/assets/ede5facf-740c-47e3-a6b9-4c118735875a" />
+
+
 ### Soal 11
 
 ## DI Narvi 
@@ -1532,6 +1557,19 @@ cat /var/log/nginx/elros_access.log | awk -F'-> ' '{print $2}' | awk '{print $1}
 cat /var/log/nginx/elros_access.log | awk -F'-> ' '{print $2}' | awk '{print $1}' | grep '[0-9]' | sort | uniq -c
 cat /var/log/nginx/elros_access.log | awk -F'-> ' '{print $2}' | awk '{print $1}' | grep '[0-9]' | sort | uniq -c | awk '{sum += $1; print $0} END {print "Total:", sum}'
 ```
+
+## Dokumentasi Tanpa Weight
+
+<img width="754" height="840" alt="image" src="https://github.com/user-attachments/assets/48396fa2-a793-4806-8f55-23842c11723a" />
+
+<img width="1706" height="267" alt="image" src="https://github.com/user-attachments/assets/474867e5-1596-4eff-afab-de38d2a597dd" />
+
+## Dokumentasi Weight
+
+<img width="767" height="976" alt="image" src="https://github.com/user-attachments/assets/39e5dad7-1a4c-415c-aef5-e52ef3e73d4f" />
+
+<img width="1672" height="126" alt="image" src="https://github.com/user-attachments/assets/543a10ae-c270-48b1-85b4-1115adcaaf9e" />
+
 
 ### Soal 12
 ## Pada Node Galadriel, Celeborn, dan Oropher
