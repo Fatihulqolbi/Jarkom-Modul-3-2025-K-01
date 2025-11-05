@@ -1490,6 +1490,20 @@ ab -n 100 -c 10 http://elros.k1.com/api/airing/
 ab -n 2000 -c 100 http://elros.k1.com/api/airing/
 ```
 
+### Buat Main aman 
+```
+nano /etc/php/8.2/fpm/pool.d/www.conf
+
+pm = dynamic
+pm.max_children = 50
+pm.start_servers = 10
+pm.min_spare_servers = 5
+pm.max_spare_servers = 20
+pm.max_requests = 500
+
+service php8.2-fpm restart
+```
+
 ## Cek Elros ( Setelah Diserang ) 
 ```
 cat /var/log/nginx/elros_access.log | awk -F'-> ' '{print $2}' | awk '{print $1}' | sort | uniq -c
